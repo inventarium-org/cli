@@ -1,18 +1,16 @@
 require "dry/cli"
+require_relative "./cli/version"
+require_relative "./cli/init"
+require_relative "./cli/push"
 
 module Inventarium
   module CLI
     extend Dry::CLI::Registry
 
-    class Version < Dry::CLI::Command
-      desc "Print version"
-
-      def call(*)
-        puts Inventarium::VERSION
-      end
-    end
-
     register "version", Version, aliases: ["v", "-v", "--version"]
+
+    register "init",    Init
+    register "push",    Push
   end
 end
 
