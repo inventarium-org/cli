@@ -1,10 +1,16 @@
 module Inventarium
   module CLI
     class Init < Dry::CLI::Command
-      desc "Generate a new service.yml file for specific service"
+      desc "Create an empty service.yml file for the service"
 
-      def call(*)
-        puts 'Created a new service.yml file'
+      example [
+        "                # Generate service.yml in root folder",
+        "./.service_meta # Generate service.yml in '.service_meta' folder"
+      ]
+
+      def call(args: [], **)
+        dir = args.first || '.'
+        puts "Created a new service.yml file in '#{dir}' directory"
       end
     end
   end
