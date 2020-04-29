@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
+gemspec
 
-gem 'dry-cli'
+gem 'tty-progressbar'
+gem 'pastel'
 
 group :test do
   gem 'rspec'

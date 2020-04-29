@@ -3,6 +3,6 @@
 
 ## Copyright
 
-Released under GNU GENERAL PUBLIC License
+Released under MIT.
 
 Copyright © 2020 Anton Davydov.

@@ -1,3 +1,5 @@
+require "pastel"
+
 module Inventarium
   module CLI
     class Init < Dry::CLI::Command
@@ -10,7 +12,14 @@ module Inventarium
 
       def call(args: [], **)
         dir = args.first || '.'
-        puts "Created a new service.yml file in '#{dir}' directory"
+
+        pastel = Pastel.new
+
+        printf "Generating a new service.yaml\t\t"
+        sleep(0.3)
+        puts "[#{pastel.green('DONE')}]"
+
+        # puts "Created a new service.yml file in '#{dir}' directory"
       end
     end
   end
