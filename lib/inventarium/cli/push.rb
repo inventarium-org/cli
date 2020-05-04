@@ -17,22 +17,28 @@ module Inventarium
       DEFAULT_BASE_URL = 'http://localhost:2300'
 
       def call(args: [], **)
-        bar = TTY::ProgressBar.new("Puishing service.yaml to inventarium.io [:bar]", total: 30)
-
         path = args.first || './service.yml'
 
+        bar = TTY::ProgressBar.new("Puishing #{path} to inventarium.io [:bar]", total: 30)
         bar.advance(10)
 
         config = parse_config(path)
 
         bar.advance(10)
 
-        push_config(config)
+        response = push_config(config)
 
         bar.advance(10)
 
-        pastel = Pastel.new
-        puts "[#{pastel.green('DONE')}]"
+        case response.code
+        when '200'
+          pastel = Pastel.new
+          puts "[#{pastel.green('DONE')}]"
+        when '422'
+          pastel = Pastel.new
+          puts "[#{pastel.red('FAIL')}] #{response.body}"
+        end
+
         # puts "Push a new service.yml file from '#{dir}' directory"
       end
 
@@ -46,7 +52,9 @@ module Inventarium
         base_url = ENV['INVENTARIUM_BASE_URL'] || DEFAULT_BASE_URL
         url = URI("#{base_url}/api/services")
 
-        req = Net::HTTP::Post.new(url, 'Content-Type' => 'application/json')
+        token = ENV['INVENTARIUM_TOKEN'].to_s
+
+        req = Net::HTTP::Post.new(url, 'X-INVENTARIUM-TOKEN' => token, 'Content-Type' => 'application/json')
         req.body = { token: 'test', service: config }.to_json
 
         Net::HTTP.start(url.hostname, url.port) do |http|
