@@ -37,6 +37,9 @@ module Inventarium
         when '422'
           pastel = Pastel.new
           puts "[#{pastel.red('FAIL')}] #{response.body}"
+        when '500'
+          pastel = Pastel.new
+          puts "[#{pastel.red('FAIL')}] #{response.body}"
         end
 
         # puts "Push a new service.yml file from '#{dir}' directory"
