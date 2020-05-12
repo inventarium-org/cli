@@ -1,5 +1,3 @@
-require "pastel"
-
 module Inventarium
   module CLI
     class Init < Dry::CLI::Command
@@ -19,8 +17,6 @@ module Inventarium
 
         FileUtils.cp(template_file_path, dir)
         puts "[#{pastel.green('DONE')}]"
-
-        # puts "Created a new service.yml file in '#{dir}' directory"
       end
 
     private

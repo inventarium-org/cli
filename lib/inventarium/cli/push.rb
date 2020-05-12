@@ -1,5 +1,4 @@
 require 'tty-progressbar'
-require "pastel"
 require 'net/http'
 require 'yaml'
 require 'json'
