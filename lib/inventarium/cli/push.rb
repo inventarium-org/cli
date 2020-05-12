@@ -14,7 +14,7 @@ module Inventarium
         "./meta/specific_service.yml   # Push specific_service.yml from './meta' folder"
       ]
 
-      DEFAULT_BASE_URL = 'http://localhost:2300'
+      DEFAULT_BASE_URL = 'https://app.inventarium.io'
 
       def call(args: [], **)
         path = args.first || './service.yml'
@@ -58,11 +58,11 @@ module Inventarium
         token = ENV['INVENTARIUM_TOKEN'].to_s
 
         req = Net::HTTP::Post.new(url, 'X-INVENTARIUM-TOKEN' => token, 'Content-Type' => 'application/json')
-        req.body = { token: 'test', service: config }.to_json
+        req.body = { token: token, service: config }.to_json
 
-        Net::HTTP.start(url.hostname, url.port) do |http|
-          http.request(req)
-        end
+        http = Net::HTTP.new(url.hostname, url.port)
+        http.use_ssl = (url.scheme == "https")
+        http.request(req)
       end
     end
   end
