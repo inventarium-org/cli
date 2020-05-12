@@ -3,9 +3,6 @@
 source "https://rubygems.org"
 gemspec
 
-gem 'tty-progressbar'
-gem 'pastel'
-
 group :test do
   gem 'rspec'
   gem 'simplecov', require: false
