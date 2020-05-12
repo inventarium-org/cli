@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    inventarium (0.0.1)
+    inventarium (0.1.0)
       dry-cli (~> 0.4)
 
 GEM
