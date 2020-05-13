@@ -1,4 +1,5 @@
 require "dry/cli"
+require_relative "./cli/template_generator"
 require_relative "./cli/version"
 require_relative "./cli/init"
 require_relative "./cli/push"

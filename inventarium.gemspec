@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "dry-cli", "~> 0.4"
   spec.add_runtime_dependency "tty-progressbar"
+  spec.add_runtime_dependency "tty-prompt"
   spec.add_runtime_dependency "pastel"
 
   spec.add_development_dependency "bundler"

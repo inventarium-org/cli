@@ -1,0 +1,70 @@
+version: v0
+
+# You need to provide only name and key fields, everything else can be empty
+# For example, if you don't have documentation or environments you can add it later
+
+# required
+name: <%= payload[:name] %>
+# required, should be unique for each service
+key: <%= payload[:key] %>
+description:
+languages:
+  -
+repository_link:
+tags:
+  -
+
+owner:
+  team_or_developer_name:
+  slack_channel:
+
+service:
+  # optional, can be (critical | normal | internal | experiment)
+  classification: <%= payload[:classification] %>
+  # optional, can be (adopt | hold | trial | in_development)
+  status: <%= payload[:status] %>
+
+docs:
+  api:
+  maintenance:
+  domain:
+
+# You can add any count of environments and you can use any names instead production, like stage, demo, etc
+environments:
+  production:
+    url:
+    healthcheck_url:
+    logs_url:
+    error_tracker_url:
+    tags:
+      - test
+      - specific gateway
+    monitoring:
+      # You can use any key-value objects here, like new_relic, grafana, etc
+      something: 
+
+operations:
+  ci_build_url:
+
+# communications:
+#   sync:
+#     - order-service
+#
+#   async:
+#     produce_to_topics:
+#       - orded-topic
+#
+#     consume_from_topics:
+#       - account-topic
+#
+# communications:
+#   - type: http/rpc/event-producer/event-consumer
+#     target: service/kafka/rabbitmq/etc
+#     # optional fields
+#     critical_rate: critical/uncritical
+#     resource: topic-name/rpc-resource/rest-resource/gqlschema
+#     custom_data:
+#       # can be anything
+#       # events:
+#       #   - test-event
+#       # version: 2

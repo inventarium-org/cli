@@ -1,3 +1,5 @@
+require "tty-prompt"
+
 module Inventarium
   module CLI
     class Init < Dry::CLI::Command
@@ -9,20 +11,35 @@ module Inventarium
         "order_service.yaml # Generate order_service.yml in root folder"
       ]
 
+      CLASSIFICATION_VALUES = %w[critical normal internal experiment]
+      STATUS_VALUES = %w[adopt hold trial in_development]
+
       def call(args: [], **)
-        dir = args.first || '.'
+        dir = args.first || './service.yaml'
+        result = base_service_information
 
         pastel = Pastel.new
         printf "Generating a new service.yaml\t\t"
 
-        FileUtils.cp(template_file_path, dir)
+        TemplateGenerator.new.call(dir: dir, payload: result)
+
         puts "[#{pastel.green('DONE')}]"
       end
 
     private
 
-      def template_file_path
-        File.expand_path(File.dirname(__FILE__) +  "/templates/service.yaml")
+      def base_service_information
+        prompt = TTY::Prompt.new
+        name = prompt.ask('A name of the service:', required: true)
+
+        key = prompt.ask("A uniq key for service (you can use only chars, integers, '_' and '-'):", required: true) do |q|
+          q.validate(/\A[a-zA-Z0-9_-]+\Z/, "Invalid key value, please use only chars, integers and '-'")
+        end
+
+        classification = prompt.select("Choose service classification", CLASSIFICATION_VALUES, symbols: {marker: '>'})
+        status = prompt.select("Choose service status", STATUS_VALUES, symbols: {marker: '>'})
+
+        { name: name, key: key, classification: classification, status: status }
       end
     end
   end
