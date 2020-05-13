@@ -2,6 +2,7 @@ require 'tty-progressbar'
 require 'net/http'
 require 'yaml'
 require 'json'
+require 'pp'
 
 module Inventarium
   module CLI
@@ -29,19 +30,25 @@ module Inventarium
 
         bar.advance(10)
 
+        pastel = Pastel.new
+
         case response.code
         when '200'
-          pastel = Pastel.new
           puts "[#{pastel.green('DONE')}]"
-        when '422'
-          pastel = Pastel.new
+
+          exit(0) # success exist
+        when '401' #  Unauthorized
           puts "[#{pastel.red('FAIL')}] #{response.body}"
+        when '403' #  Forbidden
+          puts "[#{pastel.red('FAIL')}] #{response.body}"
+        when '422' # invalid data
+          puts "[#{pastel.red('FAIL')}]"
+          pp JSON.parse(response.body)
         when '500'
-          pastel = Pastel.new
-          puts "[#{pastel.red('FAIL')}] #{response.body}"
+          puts "[#{pastel.red('FAIL')}] Service error, please try later or create an issue in https://github.com/inventarium-org/core"
         end
 
-        # puts "Push a new service.yml file from '#{dir}' directory"
+        exit(1)
       end
 
     private
