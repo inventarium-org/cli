@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    inventarium (0.2.0)
+    inventarium (0.3.0)
       dry-cli (~> 0.4)
       pastel
       tty-progressbar
