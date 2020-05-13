@@ -46,25 +46,19 @@ environments:
 operations:
   ci_build_url:
 
-# communications:
-#   sync:
-#     - order-service
-#
-#   async:
-#     produce_to_topics:
-#       - orded-topic
-#
-#     consume_from_topics:
-#       - account-topic
-#
-# communications:
-#   - type: http/rpc/event-producer/event-consumer
-#     target: service/kafka/rabbitmq/etc
-#     # optional fields
-#     critical_rate: critical/uncritical
-#     resource: topic-name/rpc-resource/rest-resource/gqlschema
-#     custom_data:
-#       # can be anything
-#       # events:
-#       #   - test-event
-#       # version: 2
+communications:
+    # type is reqired, can be (http | rpc | graphql | event-producer | event-consumer)
+  - type:
+    # reqired, can be anything like (service key | kafka | rabbitmq | etc)
+    target:
+    # optional, can be (critical | uncritical)
+    criticality:
+    # optional list, can be (topic name | queue name | rpc resource | rest resource | gqlschema name)
+    resource:
+      -
+    # optional
+    custom_data:
+      # can be anything
+      # events:
+      #   - test-event
+      # version: 2
