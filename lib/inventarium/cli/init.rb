@@ -24,6 +24,8 @@ module Inventarium
         TemplateGenerator.new.call(dir: dir, payload: result)
 
         puts "[#{pastel.green('DONE')}]"
+        puts
+        puts pastel.bright_white("Now you can fill service related information to #{dir}")
       end
 
     private
