@@ -20,8 +20,16 @@ owner:
 
 service:
   # optional, can be (critical | normal | internal | experiment)
+  # critical   - most important services, the company will lose money if that broke
+  # normal     - important service
+  # internal   - something internal
+  # experiment - experimental, can be anything here
   classification: <%= payload[:classification] %>
   # optional, can be (adopt | hold | trial | in_development)
+  # adopt - Services which we has high confidence in to serve our purpose
+  # hold  - Services not recommended to be used.
+  # trial - Services that we have seen work with success in project work to solve a real problem; first serious usage experience that confirms benefits and can uncover limitations.
+  # in_development - Services which developers build right now.
   status: <%= payload[:status] %>
 
 docs:
@@ -41,7 +49,7 @@ environments:
       - specific gateway
     monitoring:
       # You can use any key-value objects here, like new_relic, grafana, etc
-      something: 
+      something:
 
 operations:
   ci_build_url:
